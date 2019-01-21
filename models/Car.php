@@ -5,43 +5,32 @@ use Yii;
 use yii\db\ActiveRecord;
 
 /**
- * Автомобили.
+ * Cars
  *
- * @property integer $id         Id
- * @property integer $status     Статус видимости (0 - не опубликован, 1-опубликован)
- * @property integer $categoryId Модельный ряд
- * @property string  $title      Название
- * @property string  $image      Изображение
- * @property integer $price      Цена
- * @property integer $date       Дата выпуска
- * @property string  $url        Ссылка на автомобиль
- * @property integer $created_at Дата создания
- * @property integer $updated_at Дата обновления
+ * @property integer $id
+ * @property integer $status
+ * @property integer $categoryId
+ * @property string  $title
+ * @property string  $image
+ * @property integer $price
+ * @property integer $date
+ * @property string  $url
+ * @property integer $created_at
+ * @property integer $updated_at
  *
  */
 class Car extends ActiveRecord
 {
 
     /**
-     * Путь к папке с загруженными фото.
+     * Path to pictures folder
      */
     const PATH_UPLOAD_PHOTO = '/upload/car/img';
 
     /**
-     * Картинка по умолчанию
+     * Default picture
      */
     const DEFAULT_IMAGE = '/img/default_image.jpg';
-
-    /**
-     * @var int Количество отображаемых элементов в списке.
-     */
-    public $pageSize = 5;
-
-    /**
-     * список категорий атво
-     */
-    public static $categories = [1 => 'mercedes', 2 => 'nissan', 3 => 'audi'];
-
 
     /**
      * {@inheritdoc}
@@ -56,11 +45,11 @@ class Car extends ActiveRecord
      */
     public function rules()
     {
-        // Необходимо написать правила валидации
         $rules = [
             [['id', 'price', 'categoryId'], 'integer'],
             [['title', 'url'], 'string'],
             [['url'], 'unique'],
+            [['date'], 'safe'],
             [['image'], 'file', 'extensions' => ['jpg', 'png'], 'checkExtensionByMimeType' => true ]
         ];
 
@@ -76,8 +65,24 @@ class Car extends ActiveRecord
                     ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
                     ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
                 ],
-            ],
+            ]
         ];
+    }
+
+    /**
+     * date to timestamp format
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave($insert)
+    {
+        if (!parent::beforeSave($insert)) {
+            return false;
+        }
+
+        $this->date = Yii::$app->formatter->asTimestamp($this->date);
+
+        return true;
     }
 
     /**
@@ -87,21 +92,20 @@ class Car extends ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'Id'),
-            'status' => Yii::t('app', 'Статус'),
-            'title' => Yii::t('app', 'Название'),
-            'image' => Yii::t('app', 'Изображение'),
-            'categoryId' => Yii::t('app', 'Модельный ряд'),
-            'price' => Yii::t('app', 'Цена'),
-            'url' => Yii::t('app', 'Ссылка на страницу'),
-            'date' => Yii::t('app', 'Дата выпуска'),
-            'created_at' => Yii::t('app', 'Дата создания'),
-            'updated_at' => Yii::t('app', 'Дата обновления'),
+            'status' => Yii::t('app', 'Status'),
+            'title' => Yii::t('app', 'Name'),
+            'image' => Yii::t('app', 'Image'),
+            'categoryId' => Yii::t('app', 'Category'),
+            'price' => Yii::t('app', 'Price'),
+            'url' => Yii::t('app', 'Link to page'),
+            'date' => Yii::t('app', 'Date of issue'),
+            'created_at' => Yii::t('app', 'Date creation'),
+            'updated_at' => Yii::t('app', 'Date update'),
         ];
 
     }
 
     /**
-     * Картинка либо заглушка
      * return string
      */
     public function getImage()

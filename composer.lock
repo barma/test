@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a1874f39477c4568e3d538b6becd4692",
+    "content-hash": "5d3403fd8f64ebbdc66524dca36fa61c",
     "packages": [
         {
             "name": "2amigos/yii2-file-upload-widget",
@@ -527,6 +527,60 @@
                 "yii2"
             ],
             "time": "2018-11-05T12:32:36+00:00"
+        },
+        {
+            "name": "lav45/yii2-behaviors",
+            "version": "0.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lav45/yii2-behaviors.git",
+                "reference": "913900350237b9cf1b8bdfd82c7837835f600705"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lav45/yii2-behaviors/zipball/913900350237b9cf1b8bdfd82c7837835f600705",
+                "reference": "913900350237b9cf1b8bdfd82c7837835f600705",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.0",
+                "yiisoft/yii2": "2.0.*"
+            },
+            "require-dev": {
+                "ext-sqlite3": "*",
+                "phpunit/phpunit": ">=4",
+                "roave/security-advisories": "dev-master"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.6.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "lav45\\behaviors\\": "src",
+                    "lav45\\behaviors\\tests\\": "tests"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Alexey Loban",
+                    "email": "lav451@gmail.com"
+                }
+            ],
+            "description": "This is a set of Yii2 behaviors extensions",
+            "homepage": "https://github.com/lav45/yii2-behaviors",
+            "keywords": [
+                "Behavior",
+                "extension",
+                "yii2"
+            ],
+            "time": "2018-10-05T20:07:17+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

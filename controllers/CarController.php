@@ -27,7 +27,8 @@ class CarController extends Controller
     {
         $searchModel = new CarSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->pagination = ['pageSize' => $searchModel->pageSize];
+        $pageSize = Yii::$app->params['carsPageSize'];
+        $dataProvider->pagination = ['pageSize' => $pageSize];
         $dataProvider->sort = new \yii\data\Sort([
             'attributes' => [
                 'price',

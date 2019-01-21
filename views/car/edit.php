@@ -3,7 +3,7 @@
 
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
-use app\models\Car;
+use app\models\Category;
 use kartik\date\DatePicker;
 use dosamigos\fileupload\FileUpload;
 
@@ -12,7 +12,7 @@ use dosamigos\fileupload\FileUpload;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?php echo $form->field($car, 'categoryId')->dropDownList(Car::$categories) ?>
+    <?php echo $form->field($car, 'categoryId')->dropDownList(Category::getList()) ?>
 
     <?php echo $form->field($car, 'title')->textInput(['maxlength' => true]) ?>
 
@@ -44,13 +44,14 @@ use dosamigos\fileupload\FileUpload;
     <?php echo $form->field($car, 'url')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
-        <label class="control-label">Дата:</label>
+        <label class="control-label">Date of issue:</label>
         <?php echo DatePicker::widget([
             'model' => $car,
             'attribute' => 'date',
             'type' => DatePicker::TYPE_COMPONENT_APPEND,
             'options' => [
-                'value' => Yii::$app->formatter->asDate($car->date),
+                'value' => ($car->date) ? Yii::$app->formatter->asDate($car->date) : '',
+                'placeholder' => 'Enter date creation'
             ],
             'pluginOptions' => [
                 'autoclose'=>true,

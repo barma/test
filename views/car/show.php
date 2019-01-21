@@ -4,7 +4,7 @@
 use yii\widgets\DetailView;
 use yii\helpers\Url;
 use yii\helpers\Html;
-use app\models\Car;
+use app\models\Category;
 
 echo DetailView::widget([
     'model' => $car,
@@ -12,7 +12,7 @@ echo DetailView::widget([
         [
             'attribute' => 'categoryId',
             'value' => function($car) {
-                return Car::$categories[$car->categoryId];
+                return Category::getList()[$car->categoryId];
             }
         ],
         'title',

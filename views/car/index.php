@@ -6,9 +6,9 @@
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\grid\GridView;
-use app\models\Car;
 use kartik\date\DatePicker;
 use yii\helpers\Url;
+use app\models\Category;
 
 ?>
 
@@ -18,9 +18,9 @@ use yii\helpers\Url;
         'method' => 'get',
     ]); ?>
 
-    <?php echo $form->field($searchModel, 'categoryId')->dropDownList(Car::$categories, ['prompt' => 'Выбор категории']) ?>
-    <?php echo $form->field($searchModel, 'priceFrom')->textInput(['autofocus' => true])->label('Цена от:') ?>
-    <?php echo $form->field($searchModel, 'priceTo')->textInput(['autofocus' => true])->label('Цена до:') ?>
+    <?php echo $form->field($searchModel, 'categoryId')->dropDownList(Category::getList(), ['prompt' => 'Choose category']) ?>
+    <?php echo $form->field($searchModel, 'priceFrom')->textInput(['autofocus' => true])->label('Price From:') ?>
+    <?php echo $form->field($searchModel, 'priceTo')->textInput(['autofocus' => true])->label('Price To:') ?>
 
     <?php
     $valueFrom = '';
@@ -29,7 +29,7 @@ use yii\helpers\Url;
     }
     ?>
     <div class="form-group">
-        <label class="control-label">Дата от:</label>
+        <label class="control-label">Date update From:</label>
         <?php echo DatePicker::widget([
             'model' => $searchModel,
             'attribute' => 'dateUpdateFrom',
@@ -49,7 +49,7 @@ use yii\helpers\Url;
     }
     ?>
     <div class="form-group">
-        <label class="control-label">Дата до:</label>
+        <label class="control-label">Date update To:</label>
         <?php echo DatePicker::widget([
             'model' => $searchModel,
             'attribute' => 'dateUpdateTo',
@@ -80,7 +80,7 @@ use yii\helpers\Url;
             array(
                 'attribute' => 'categoryId',
                 'value' => function($car) {
-                    return Car::$categories[$car->categoryId];
+                    return Category::getList()[$car->categoryId];
                 }
             ),
             'title',
